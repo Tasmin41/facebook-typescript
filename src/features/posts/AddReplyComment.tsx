@@ -1,5 +1,6 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
+import callApi from '../../utils/axios/useAPI';
 
 
 const AddReplyComment = (props) => {
@@ -17,14 +18,7 @@ const AddReplyComment = (props) => {
 
     const handleReplySubmit = async(e)=>{
         e.preventDefault();
-        const fetchReply=await fetch('http://localhost:3333/replies', {
-          method: 'POST',
-          body: JSON.stringify({post_id:postId,comment_id:commentId,reply_text:reply}),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
-
+        const fetchReply=await callApi('replies','post',{post_id:postId,comment_id:commentId,reply_text:reply}) 
     }
 
   return (

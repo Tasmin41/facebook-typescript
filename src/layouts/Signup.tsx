@@ -1,7 +1,7 @@
-
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { signupURL } from '../api/api'
+
+import callApi from '../utils/axios/useAPI'
 
 const Signup = () => {
     const [signup,setSignup]=useState(
@@ -17,14 +17,9 @@ const Signup = () => {
         setSignup({...signup,[name]:e.target.value})
     }
    const handleSubmit=async(e)=>{
-   const response = await fetch(signupURL,{
-    method: 'POST',
-    body: JSON.stringify({name:name,email:email,password:password}),
-    headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-    },
-   })
-
+    e.preventDefault()
+    const response = await callApi("users","post",{name:name,email:email,password:password})
+    console.log(response)
    }
    
   return (

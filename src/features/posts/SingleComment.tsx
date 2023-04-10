@@ -4,12 +4,10 @@ import ReplyComment from './ReplyComment';
 
 const SingleComment = (props) => {
 
-    const {id,post_id,comment_text,comment_author,replies}=props.singleComment;
+    const {id,post_id,comment_text,replies}=props.singleComment;
 
 
 
-    // const singleReply = replies[0];
-    // console.log(singleReply)
     const [isLike,setIsLike]=useState(false);
     const [isReply,setIsReply] = useState(false);
 

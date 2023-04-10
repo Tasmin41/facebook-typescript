@@ -1,9 +1,7 @@
 import axios from "axios";
 
 
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL
-  ? process.env.NEXT_PUBLIC_BASE_URL
-  : "http://localhost:3333/";
+export const BASE_URL ="http://localhost:3333"
 axios.defaults.withCredentials = true;
 const callApi = async (
   url: string,
@@ -17,11 +15,12 @@ const callApi = async (
   }
 
   let apiUrl = url;
+  console.log(apiUrl,'api')
 
   if (isErrHandlingEnabled) {
     try {
       const res = await axios({
-        url: apiUrl,
+        url:BASE_URL+apiUrl,
         method: method,
         data: body,
       });

@@ -1,12 +1,12 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useState } from 'react'
+import callApi from '../utils/axios/useAPI'
 
 
 export const Login = () => {
   const [signIn,setSignIn]=useState(
     {
-  
         email:"",
         password:""
     }
@@ -17,13 +17,11 @@ const handleChange = (e)=>{
     const name = e.target.name;
     setSignIn({...signIn,[name]:e.target.value})
 }
-const handleSubmit=(e)=>{
- 
+const handleSubmit=async(e)=>{
+  e.preventDefault()
+  const res= await callApi("login","post",{email:email,password:password})
 }
-// useEffect(() => {
-//   fetch("http://localhost:3333/users").then((res)=>res.json()).then((data)=>console.log(data)) 
-// }, [])
- 
+
   return (
 <div className="form-signin w-100 m-auto text-center d-flex justify-content-center mt-5">
 <form className="col-lg-4" onSubmit={handleSubmit}>

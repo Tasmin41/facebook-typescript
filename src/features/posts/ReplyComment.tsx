@@ -3,7 +3,7 @@ import React,{useState} from 'react'
 const ReplyComment = (props) => {
 
  
-    const {post_id,comment_id,reply_text,reply_author}=props.singleReply;
+    const {reply_text}=props.singleReply;
 
     
     const [isLike,setIsLike]=useState(false);

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { viewPosts } from './PostSlice';
 import SinglePost from './SinglePost';
+import callApi from '../../utils/axios/useAPI';
 
 
 
@@ -16,12 +17,11 @@ const PostView = () => {
 
     useEffect(() => {
       async function fetchData() {
-        const response = await fetch("http://localhost:3333/posts")
-        const data = await response.json();
-        dispatch(viewPosts(data))
+        const response = await callApi("posts","get")
+        dispatch(viewPosts(response))
       }
       fetchData();
-    })
+    },[])
 
     
   return (

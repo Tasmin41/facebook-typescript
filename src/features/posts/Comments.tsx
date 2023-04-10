@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import SingleComment from './SingleComment';
 import { viewPosts } from './PostSlice';
+import callApi from '../../utils/axios/useAPI';
 
 
 const Comments = (props) => {
@@ -17,13 +18,7 @@ const Comments = (props) => {
 
     const handleCommentSubmit=async(e)=>{
         e.preventDefault();
-        const commentFetch=await fetch('http://localhost:3333/comments', {
-            method: 'POST',
-            body: JSON.stringify({post_id:postId,comment_text:comment}),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-            },
-          })
+        const commentFetch=await callApi('comments','post',{post_id:postId,comment_text:comment}) 
         
           const response = await fetch("http://localhost:3333/posts")
           const data = await response.json();

@@ -1,12 +1,8 @@
-import React,{useState} from 'react'
-
-
+import {useState} from 'react'
 import Comments from './Comments';
 import PostEditModal from './PostEditModal';
+import callApi from '../../utils/axios/useAPI';
 
-
-
-const reactURL="http://localhost:3333/reacts"
 
 
 const SinglePost = (props) => {
@@ -24,50 +20,25 @@ const SinglePost = (props) => {
         if(disabledVal === 0){
           setReact(react + 1)
           setDisabledVal(disabledVal+1)
-    
-          fetch(`${reactURL}/${id}`,{
-            method: 'POST',
-            body: JSON.stringify({total_react:react+1}),
-            headers: {
-              'Content-type': 'application/json; charset=UTF-8',
-            },
-          })
+          callApi(`reacts/${id}`,"post",{total_react:react+1})
         }
       else{
         setReact(react - 1)
         setDisabledVal(disabledVal - 1)
-        fetch(`${reactURL}/${id}`,{
-          method: 'POST',
-          body: JSON.stringify({total_react:react-1}),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
+        callApi(`reacts/${id}`,"post",{total_react:react-1})
       }
       }
       else if(reacts.length === 0){
         if(disabledVal === 0){
           setReact(react + 1)
           setDisabledVal(disabledVal+1)
-    
-        fetch(reactURL, {
-          method: 'POST',
-          body: JSON.stringify({post_id:id,total_react:react+1}),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
+          callApi(`reacts/${id}`,"post",{post_id:id,total_react:react+1})
+
         }
       else{
         setReact(react - 1)
         setDisabledVal(disabledVal - 1)
-        fetch(`${reactURL}/${id}`,{
-          method: 'POST',
-          body: JSON.stringify({total_react:react-1}),
-          headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-          },
-        })
+        callApi(`reacts/${id}`,"post",{total_react:react-1})
       }
       }
     }

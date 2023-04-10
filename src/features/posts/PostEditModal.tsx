@@ -3,16 +3,13 @@ import { Modal } from 'antd';
 
 import { useDispatch } from 'react-redux';
 import { viewPosts } from './PostSlice';
+import callApi from '../../utils/axios/useAPI';
 
 const PostEditModal = (props) => {
   const {id,post_desc}=props.post;
 
   const [openEditModal,setOpenEditModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const postURL="http://localhost:3333/posts"
-
-  
 
   const dispatch =useDispatch();
 
@@ -23,21 +20,11 @@ const PostEditModal = (props) => {
   const handleOk = async(e) => {       
     e.preventDefault();
   
-    const editPost=fetch(`${postURL}/${id}`,{
-      method: 'post',
-      body: JSON.stringify({
-        post_desc:postEdit
-      }),
-      headers: {
-        'Content-type': 'application/json; charset=UTF-8',
-      },
-    })
-    console.log(editPost)
+    const editPost=await callApi(`posts/${id}`,'post',{post_desc:postEdit})
    
-    const response3 = await fetch(postURL)
-    const data3 = await response3.json();
-    dispatch(viewPosts(data3))
-    console.log(data3)
+    const response = await callApi("posts","get")
+    dispatch(viewPosts(response))
+
     setIsModalOpen(false);
     setOpenEditModal(false)
   };
@@ -60,18 +47,13 @@ const handleCancel = () => {
   
 /*Delete Post*/
   const deletePost = async (id)=>{
-    const dltResponse= fetch(postURL+id, {
-      method: 'DELETE',
-    });
-    console.log(dltResponse,"delete post")
+    const dltResponse= await callApi(`postsDelete/${id}`,'post')
 
     setIsModalOpen(false);
     setOpenEditModal(false);
   
-
-    const response = await fetch(postURL)
-    const data = await response.json();
-    dispatch(viewPosts(data))
+  const response = await callApi("posts","get")
+  dispatch(viewPosts(response))
   }
   return (
     <div>
