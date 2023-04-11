@@ -1,11 +1,13 @@
 import React from 'react'
 import PostCreate from '../features/posts/PostCreate'
 import PostView from '../features/posts/PostView'
+import Navbar from './Navbar'
 
 const Home = () => {
   return (
     <>
-      <section>
+    <Navbar/>
+      <section className='home_wrapper'>
           <div className='container'>
             <div className='row'>
                 <div className='col-xl-6 col-lg-6 col-md-6 col-sm-6 col-12 mx-auto'>

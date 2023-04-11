@@ -1,8 +1,15 @@
-section{
-  background-color: #F0F2F5;
+.home_wrapper{
+
   color: #1c1e21;
-  padding: 100px 0;
+
 }
+
+.navbar_wrapper{
+  padding: 30px 0;
+  margin-bottom: 40px !important;
+  background-color: #fff;
+}
+
 /* .container{
   max-width: 98%;
   margin: 0 auto;
@@ -204,4 +211,32 @@ section{
 }
 .post-modalbtn span svg {
   width: 5px;
+}
+.logo_link{
+  font-size: 24px;
+  text-decoration: none;
+  font-weight: 600;
+}
+.search-nav{
+  border: 0;
+  width: 100%;
+}
+.search{
+  border: 1px solid #ddd;
+  padding: 10px 15px;
+  display: flex;
+  align-items: center;
+  border-radius: 50px;
+}
+.search input:focus{
+  border: 0;
+  outline: none;
+}
+.logout_link svg{
+  width: 20px;
+}
+.logout_link{
+  text-align: end;
+  display: flex;
+  justify-content: flex-end;
 }

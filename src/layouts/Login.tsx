@@ -1,10 +1,12 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react'
 import callApi from '../utils/axios/useAPI'
+import { message } from 'antd'
 
 
 export const Login = () => {
+  const navigate = useNavigate()
   const [signIn,setSignIn]=useState(
     {
         email:"",
@@ -19,7 +21,14 @@ const handleChange = (e)=>{
 }
 const handleSubmit=async(e)=>{
   e.preventDefault()
-  const res= await callApi("login","post",{email:email,password:password})
+  const response= await callApi("login","post",{email:email,password:password})
+  if(response){
+    message.success('logged in')
+    navigate('/')
+  }
+  else{
+    message.error ('The email address or mobile number you entered isnt connected to an account')
+  }
 }
 
   return (

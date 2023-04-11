@@ -2,6 +2,8 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import callApi from '../utils/axios/useAPI'
+import { message } from 'antd'
+
 
 const Signup = () => {
     const [signup,setSignup]=useState(
@@ -11,6 +13,13 @@ const Signup = () => {
             password:""
         }
     )
+    const [error,setError] = useState({
+      nameError:null,
+      emailError:null,
+      passwordError:null,
+
+    })
+    const {nameError,emailError,passwordError}=error
     const {name,email,password} = signup
     const handleChange = (e)=>{
         const name = e.target.name;
@@ -18,8 +27,14 @@ const Signup = () => {
     }
    const handleSubmit=async(e)=>{
     e.preventDefault()
+
     const response = await callApi("users","post",{name:name,email:email,password:password})
-    console.log(response)
+    if(response){
+      message.success("Registration Successfull")
+    }
+    else{
+      message.error("something went wrong .Try again")
+    }
    }
    
   return (
@@ -32,6 +47,7 @@ const Signup = () => {
      <div className="form-floating mb-3">
       <input type="text" name="name" className="form-control"  placeholder="name" value={name} required onChange={handleChange}/>
       <label >Name</label>
+     {nameError && <span className='errorMessage'>{nameError}</span>}
     </div>
     <div className="form-floating mb-3">
       <input type="email" name="email" className="form-control" id="floatingInput" placeholder="name@example.com" value={email} required onChange={handleChange}/>
@@ -46,6 +62,7 @@ const Signup = () => {
     <button type="submit" className="w-100 btn btn-lg btn-primary" >Sign up</button>
     <h4>Already have an account?   <Link to='/login'>Login Here</Link></h4>
   </form>
+ 
 </div>
   )
 }

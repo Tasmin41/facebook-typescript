@@ -1,6 +1,7 @@
 import {useState} from 'react'
 import { useDispatch } from 'react-redux';
 import callApi from '../../utils/axios/useAPI';
+import { viewPosts } from './PostSlice';
 
 
 const AddReplyComment = (props) => {
@@ -19,6 +20,9 @@ const AddReplyComment = (props) => {
     const handleReplySubmit = async(e)=>{
         e.preventDefault();
         const fetchReply=await callApi('replies','post',{post_id:postId,comment_id:commentId,reply_text:reply}) 
+        const response = await callApi("posts","get")
+        dispatch(viewPosts(response))
+        setReply("")
     }
 
   return (

@@ -1,4 +1,6 @@
 import axios from "axios";
+import { error } from "console";
+import { message } from 'antd';
 
 
 export const BASE_URL ="http://localhost:3333"
@@ -32,7 +34,10 @@ const callApi = async (
       if (e.response) {
         if (e?.response?.status === 400 || e?.response?.status === 401) {
           // msg.e(e.response.data?.msg || e.response.data?.message || "Something went wrong");
+          e.message("somethng wromg")
         } else if (e.response.status === 422) {
+          e.message("validation ")
+          
           // msg.showBackendErrors(e.response);
         } else if (e.response.status === 403) {
           window.location.href = "/login";
